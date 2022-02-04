@@ -1,0 +1,41 @@
+extends ../layout
+
+block content
+    - each task in tasks
+        div.card
+            div.card-body
+                h5.card-title Task #{task.tittle}
+                p.card-text #{task.tittle}
+
+            div.card-body
+                button.btn.btn-primary(type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-task-id="#{task.UUID}" data-task-tittle="#{task.tittle}") #{task.UUID}
+
+    <!-- Modal -->
+    div.modal(tabindex="-1")#exampleModal
+        div.modal-dialog
+            div.modal-content
+                div.modal-header
+                    h5.modal-title#modal_tittle Titulo
+                    button.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+                div.modal-body#modal_body Modal body text goes here.
+                div.modal-footer
+                    a#btnCompletada.btn.btn-primary(href="#") Completada
+                    a.btn.btn-secondary(href="#" data-bs-dismiss="modal") Close
+
+    script.
+        function changeToDone(id) {
+            $.get( "/tasks/" + id, function( data ) {
+               alert( "Tarea completada" );
+            })
+        }
+        $(document).ready(function () {
+            $('#exampleModal').on('show.bs.modal', function(e) {
+
+                var id = 'Task ID:' + $(e.relatedTarget).data('task-id');
+                var tittle = $(e.relatedTarget).data('task-tittle');
+
+                $('#modal_tittle').text(id)
+                $('#modal_body').text(tittle)
+                $('#btnCompletada').attr("href", "javascript:changeToDone('" + $(e.relatedTarget).data('task-id') + "')");
+            });
+        });

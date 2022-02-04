@@ -7,7 +7,7 @@ module.exports.getTasks = async (req, res, next) => {
   let { data } = await axios.get(URL_GETTASK + (req.params.quantity || 3));
 
   let tasks = data.map((task) => {
-    return { title: task , UUID: v4() };
+    return { tittle: task , UUID: v4() };
   });
 
   res.send(tasks);

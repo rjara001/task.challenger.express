@@ -13,12 +13,6 @@ app.use("/truenorth", router, function (req, res, next) {
     next();
 });
 
-
-app.get('/', function (req, res) {
-  res.send('im listening you at 3000 port')
-})
-
-
-app.listen(3000, () => {
-    console.log(`im listening you at 3000 port`)
+app.listen(3001, () => {
+    console.log(`im listening you at 3001 port`)
   });
