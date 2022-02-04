@@ -24,6 +24,18 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/tasks', tasksRouter);
 
+
+var { getTasks, putTask } = require('./apis/tasks');
+var router = express.Router();
+
+router.get("/tasks/:quantity?", getTasks);
+
+router.put("/tasks", putTask);
+
+app.use("/truenorth", router, function (req, res, next) {
+  next();
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

@@ -3,20 +3,20 @@ var router = express.Router();
 var axios = require('axios');
 
 class taskManager {
-     static async getTasks(){
-        let { data } = await axios.get('http://localhost:3001/truenorth/tasks/10');
+     static async getTasks(len){
+        let { data } = await axios.get('http://localhost:3000/truenorth/tasks/' + len);
         return data;
     }
 }
 /* GET home page. */
-router.get("/", async function (req, res, next) {
+router.get("/:id?", async function (req, res, next) {
 
   res.render("tasks/index", {
-    tasks: await taskManager.getTasks(),
+    tasks: await taskManager.getTasks(req.params.id),
   });
 });
 
-router.get("/:id", async function (req, res, next) {
+router.put("/:id", async function (req, res, next) {
 
   console.log('call put');
   next();

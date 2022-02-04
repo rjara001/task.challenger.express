@@ -2,13 +2,16 @@ extends ../layout
 
 block content
     - each task in tasks
-        div.card
-            div.card-body
-                h5.card-title Task #{task.tittle}
-                p.card-text #{task.tittle}
+        div.border-top.my-3
+            div.card
+                div.card-body
+                    h5.card-title Task #{task.tittle}
+                    p.card-text #{task.tittle}
 
-            div.card-body
-                button.btn.btn-primary(type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-task-id="#{task.UUID}" data-task-tittle="#{task.tittle}") #{task.UUID}
+                div.card-body
+                    
+                    button.btn.btn-primary(type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" data-task-id="#{task.UUID}" data-task-tittle="#{task.tittle}")
+                        i.bi.bi-eye&nbsp;Ver
 
     <!-- Modal -->
     div.modal(tabindex="-1")#exampleModal
@@ -24,7 +27,7 @@ block content
 
     script.
         function changeToDone(id) {
-            $.get( "/tasks/" + id, function( data ) {
+            $.put( "/tasks/", {UIID:id}, function( data ) {
                alert( "Tarea completada" );
             })
         }
